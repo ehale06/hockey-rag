@@ -1,6 +1,6 @@
 # Hockey RAG Assistant
 
-A Retrieval-Augmented Generation (RAG) application for querying real-time NHL hockey data using natural language. Built with Python, ChromaDB, sentence-transformers, Claude API, and Streamlit.
+A Retrieval-Augmented Generation (RAG) application for querying NHL hockey data using natural language. Built with Python, ChromaDB, sentence-transformers, Claude API, and Streamlit.
 
 ## Screenshots
 
