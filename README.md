@@ -21,7 +21,7 @@ A Retrieval-Augmented Generation (RAG) application for querying real-time NHL ho
 
 This application demonstrates a production-style RAG pipeline applied to a real-world domain. It ingests live NHL data from multiple sources, processes it into semantically meaningful document chunks, embeds and stores them in a vector database, and uses Claude to generate grounded natural language answers.
 
-The project addresses a genuine gap in the sports analytics market. Tools like Natural Stat Trick, MoneyPuck, and Hockey Reference provide rich NHL data through dashboards and tables. None provide a natural language interface that lets fans and analysts ask complex questions in plain English and receive grounded, data-backed answers. The dream state of this application would compile data from every possible source: betting odds, game logs, news articles, even practice logs, to allow fans and employees of the NHL and their teams to query data and get close to real-time responses back. Whether you're just a fan playing fantasy hockey, a sports bettor, or an NHL scout looking for data on trades, RAG in its final form with all that data could unlock a lot of value.
+Most SOTA NHL hockey apps have unfettered access to paid game log data, betting lines, practice logs, etc. This was a way to test and learn about RAG architecture while collecting and structuring the free data that is out there. 
 
 **Supported teams:** New Jersey Devils, Carolina Hurricanes, New York Islanders
 
@@ -79,7 +79,13 @@ Pure semantic search struggles with ranked and time-filtered queries. This appli
 
 **Direct component integration over LangChain abstractions** — Built the RAG pipeline using core components directly including sentence-transformers, ChromaDB Python client, and Anthropic SDK rather than relying on LangChain wrappers. This approach provides deeper understanding of each layer and more control over retrieval behavior.
 
-**Known limitations** — News articles provide summaries only due to RSS free tier constraints. Post Olympic break comparisons between players require both players summaries to surface in the same retrieval window.
+**Known limitations**
+  *Structured data in a vector store* — NHL stats are inherently structured and would be more precisely served by direct SQL database queries rather than semantic search. The intent detection layer compensates for this by routing structured queries to pre-aggregated summary documents. A production system would use a hybrid architecture separating direct database queries for stats from semantic search for narrative content.
+  *Intent detection brittleness* — Keyword based routing works well for anticipated query patterns but falls back to generic semantic search for unanticipated phrasings. A more robust approach would use metadata filtering combined with hybrid BM25 and dense vector search.
+  *News content depth* — RSS feeds provide summaries only due to free tier constraints. Full article content would improve answers to narrative and context heavy questions.
+  *Three team coverage* — Covers Devils, Hurricanes, and Islanders only. Scaling to all 32 teams would require automated daily refresh pipelines and a persistent database backend.
+  *No real time data* — Data reflects the most recent manual refresh rather than live game updates.
+  *Post Olympic break cross player comparison* — Comparing multiple players over the same period requires both players summary documents to surface in the same retrieval window which is not guaranteed.
 
 ## Tech Stack
 
