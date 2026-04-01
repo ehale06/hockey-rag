@@ -80,6 +80,7 @@ Pure semantic search struggles with ranked and time-filtered queries. This appli
 **Direct component integration over LangChain abstractions** — Built the RAG pipeline using core components directly including sentence-transformers, ChromaDB Python client, and Anthropic SDK rather than relying on LangChain wrappers. This approach provides deeper understanding of each layer and more control over retrieval behavior.
 
 **Known limitations**
+
   *Structured data in a vector store* : NHL stats are inherently structured and would be more precisely served by direct SQL database queries rather than semantic search. The intent detection layer compensates for this by routing structured queries to pre-aggregated summary documents. A production system would use a hybrid architecture separating direct database queries for stats from semantic search for narrative content.
   
   *Intent detection brittleness* : Keyword based routing works well for anticipated query patterns but falls back to generic semantic search for unanticipated phrasings. A more robust approach would use metadata filtering combined with hybrid BM25 and dense vector search.
