@@ -13,6 +13,7 @@ A Retrieval-Augmented Generation (RAG) application for querying real-time NHL ho
 **Post Olympic Break Analysis**
 ![Jack Hughes Olympic Break](screenshots/jack_hughes_olympics.png)
 
+
 **Top Scorers**
 ![Carolina Top Scorers](screenshots/carolina_top_scorers.png)
 
